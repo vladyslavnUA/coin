@@ -1,0 +1,15 @@
+deployedContract.deploy({
+  data: bytecode,
+  arguments: [listOfCandidates.map(name => web3.utils.asciiToHex(name))]
+}).send({
+  from: '0xDA180a7eC934dBBcA00443a53092d5FA1e666C7E',
+  gas: 1500000,
+  gasPrice: web3.utils.toWei('0.00003', 'ether')
+}).then((newContractInstance) => {
+  deployedContract.options.address = newContractInstance.options.address
+  console.log(newContractInstance.options.address)
+});
+
+deployedContract.methods.voteForCandidate(web3.utils.asciiToHex('person')).send({from: '0xDA180a7eC934dBBcA00443a53092d5FA1e666C7E'}).then((f) => console.log(f))
+
+deployedContract.methods.totalVotesFor(web3.utils.asciiToHex('person')).call(console.log)
